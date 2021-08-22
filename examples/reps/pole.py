@@ -11,9 +11,9 @@ env.unwrapped.dt = 0.01
 env.unwrapped.sigma = 1e-8
 # env.seed(1337)
 
-reps = REPS(env=env, kl_bound=0.5, discount=0.98,
+reps = REPS(env=env, kl_bound=0.25, discount=0.98,
             scale=[0.25, 1.5], mult=0.5,
-            nb_pfeat=50, nb_vfeat=50, vf_reg=1e-12)
+            nb_pfeat=25, nb_vfeat=25, vf_reg=1e-8)
 
 reps.run(nb_iter=10, nb_train_samples=2500,
          nb_eval_rollouts=25, nb_eval_steps=100)

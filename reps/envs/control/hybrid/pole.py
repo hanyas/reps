@@ -23,7 +23,7 @@ class PoleWithWall(gym.Env):
                                             high=self.xmax,
                                             dtype=np.float64)
 
-        self.uw = - np.array([1e-1])
+        self.uw = - np.array([1e-2])
         self.umax, self.umin = np.array([4.]), np.array([-4.])
         self.action_space = spaces.Box(low=self.umin,
                                        high=self.umax,
