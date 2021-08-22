@@ -17,7 +17,7 @@ EXP_MAX = 700.0
 EXP_MIN = -700.0
 
 
-def one_hot(z, K):
+def one_hot(K, z):
     z = np.atleast_1d(z).astype(int)
     assert np.all(z >= 0) and np.all(z < K)
     shp = z.shape
@@ -201,7 +201,7 @@ class hbREPS_hbVf:
                             roll['zn'] = np.hstack((roll['zn'], zn))
 
                             xh, uh = np.vstack((roll['xi'], roll['xn'])), roll['u']
-                            alpha = self.dyn.filtered_state(xh, uh)[-1]
+                            alpha = self.dyn.filtered_posterior(xh, uh)[-1]
                             zl = npr.choice(self.nb_modes, p=alpha)
                             roll['zn'] = np.hstack((roll['zn'], zl))
 
@@ -217,7 +217,7 @@ class hbREPS_hbVf:
                 roll['zn'] = np.hstack((roll['zn'], zn))
 
                 xh, uh = np.vstack((roll['xi'], roll['xn'])), roll['u']
-                alpha = self.dyn.filtered_state(xh, uh)[-1]
+                alpha = self.dyn.filtered_posterior(xh, uh)[-1]
                 zl = npr.choice(self.nb_modes, p=alpha)
                 roll['zn'] = np.hstack((roll['zn'], zl))
 
@@ -329,7 +329,7 @@ class hbREPS_hbVf:
 
             x = [roll['x'] for roll in self.rollouts]
             u = [roll['u'] for roll in self.rollouts]
-            z = [one_hot(roll['z'], self.nb_modes) for roll in self.rollouts]
+            z = [one_hot(self.nb_modes, roll['z']) for roll in self.rollouts]
 
             self.ctl.weighted_mstep(z, x, u, w, ctl_mstep_kwargs)
 

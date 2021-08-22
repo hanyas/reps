@@ -18,7 +18,7 @@ EXP_MAX = 700.0
 EXP_MIN = -700.0
 
 
-def one_hot(z, K):
+def one_hot(K, z):
     z = np.atleast_1d(z).astype(int)
     assert np.all(z >= 0) and np.all(z < K)
     shp = z.shape
@@ -225,7 +225,7 @@ class hbREPS_hbVf:
 
     def inference(self, rollouts):
         for roll in rollouts:
-            alpha = self.dyn.filtered_state(roll['x'], roll['uc'])
+            alpha = self.dyn.filtered_posterior(roll['x'], roll['uc'])
             roll['p'], roll['i'] = alpha, np.atleast_2d(alpha[0, :])
 
             roll['t'] = np.zeros((len(roll['x']), self.nb_modes, self.nb_modes))
