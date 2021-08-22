@@ -11,6 +11,8 @@ from reps.hireps import hbREPS
 
 # np.random.seed(1337)
 
+torch.set_num_threads(1)
+
 env = gym.make('Pole-RL-v0')
 env._max_episode_steps = 5000
 env.unwrapped.dt = 0.01
@@ -34,9 +36,9 @@ output_dim = act_dim
 
 likelihood_precision_prior = Gamma(dim=1, alphas=np.ones((1,)) + 1e-8,
                                    betas=25. * np.ones((1,)))
-
 parameter_precision_prior = Gamma(dim=input_dim, alphas=np.ones((input_dim,)) + 1e-8,
                                   betas=1e1 * np.ones((input_dim,)))
+
 ctl_prior = {'likelihood_precision_prior': likelihood_precision_prior,
              'parameter_precision_prior': parameter_precision_prior}
 
@@ -52,12 +54,9 @@ ctl.controls.params = Ks, lmbdas
 hbreps = hbREPS(env=env, dyn=dyn, ctl=ctl,
                 kl_bound=0.5, discount=0.98,
                 scale=[0.25, 1.5], mult=0.5,
-                nb_vfeat=50, vf_reg=1e-12)
+                nb_vfeat=25, vf_reg=1e-8)
 
-ctl_mstep_kwargs = {'method': 'sgd',
-                    'nb_iter': 1, 'batch_size': 512,
-                    'nb_sub_iter': 5, 'lr': 2e-3}
-
+ctl_mstep_kwargs = {'nb_iter': 5}
 hbreps.run(nb_iter=10, nb_train_samples=2500,
            nb_eval_rollouts=25, nb_eval_steps=100,
            ctl_mstep_kwargs=ctl_mstep_kwargs)
