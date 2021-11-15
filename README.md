@@ -8,7 +8,7 @@ The following references are not all are specifically implemented, but have info
 
 ### General REPS Formulation:
 
-Jan Peters, Katharina Mulling, and Yasemin Altun. "Relative entropy policy search":
+Jan Peters, Katharina Mulling, and Yasemin Altun. "Relative entropy policy search"
 
 https://www.ias.informatik.tu-darmstadt.de/uploads/Team/JanPeters/Peters2010_REPS.pdf
 
@@ -16,7 +16,7 @@ Herk Van Hoof, Gerhard Neumann, and Jan Peters. "Non-parametric policy search wi
 
 https://www.jmlr.org/papers/volume18/16-142/16-142.pdf
 
-Boris Belousov, and Jan Peters. "f-Divergence constrained policy improvement
+Boris Belousov, and Jan Peters. "f-Divergence constrained policy improvement"
 
 https://arxiv.org/pdf/1801.00056.pdf
 
